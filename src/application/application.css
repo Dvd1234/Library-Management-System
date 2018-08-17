@@ -6,3 +6,31 @@
 #issueButton: hover{
 -fx-background-color: #388E3C;
 }
+
+#submissionButton{
+-fx-background-color: blue;
+-fx-text-fill: white;
+}
+
+#submissionButton: hover{
+-fx-background-color: #388E3C;
+}
+
+#renewButton{
+-fx-background-color: blue;
+-fx-text-fill: white;
+}
+
+#renewButton: hover{
+-fx-background-color: #388E3C;
+}
+
+.buttonClass{
+-fx-background-color: blue;
+-fx-text-fill: white;
+-fx-border-radius: 20px;
+}
+
+.buttonClass:hover{
+-fx-background-color: #388E3C;
+}
