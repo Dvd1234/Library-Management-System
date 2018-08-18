@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="listBooks.ListBooksController">
+   <children>
+      <TableView fx:id="tableView" layoutX="106.0" layoutY="94.0" prefHeight="538.0" prefWidth="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="73.59997403621674" text="ID" />
+          <TableColumn fx:id="titleCol" prefWidth="197.60004425048828" text="Title" />
+            <TableColumn fx:id="authorCol" prefWidth="144.800048828125" text="Author" />
+            <TableColumn fx:id="publisherCol" prefWidth="135.19985961914062" text="Publisher" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

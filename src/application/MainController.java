@@ -29,6 +29,31 @@ public class MainController implements Initializable {
 	}
 	
 	
+	@FXML
+	public void addMember(ActionEvent event) throws IOException {
+		
+		loadWindow("/addMember/AddMember.fxml","Add Member","/img/user-add-icon---shine-set-add-new-user-add-user-30.png");
+	
+	}
+	
+	
+	@FXML
+	public void listBooks(ActionEvent event) throws IOException {
+		
+		loadWindow("/listBooks/listBooks.fxml","Book List","/img/search_book-512.png");
+	
+	}
+	
+	
+	@FXML
+	public void listMembers(ActionEvent event) throws IOException {
+		
+		loadWindow("/listMembers/ListMembers.fxml","Book List","/img/image_1_orig.png");
+	
+	}
+	
+	
+	
 	public void loadWindow(String location, String title,String iconPath) throws IOException {
 		Parent root=FXMLLoader.load(Main.class.getResource(location));
 		Stage stage=new Stage(StageStyle.DECORATED);

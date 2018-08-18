@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addMember.AddMemberController">
+   <children>
+      <VBox layoutX="202.0" layoutY="82.0" prefHeight="616.0" prefWidth="817.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="23.0" prefWidth="342.0" text="Enter Member ID" textFill="#2497d6">
+               <VBox.margin>
+                  <Insets left="25.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="memberId" promptText="Enter Member ID">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+            <Label layoutX="35.0" layoutY="30.0" prefHeight="23.0" prefWidth="342.0" text="Enter Member Name" textFill="#2497d6">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="memberName" layoutX="30.0" layoutY="30.0" promptText="Enter Member Name">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Label prefHeight="23.0" prefWidth="342.0" text="Enter Contact Number" textFill="#2497d6">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="memberContact" layoutX="10.0" layoutY="76.0" promptText="Enter Contact Number">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Label prefHeight="23.0" prefWidth="342.0" text="Enter Email" textFill="#2497d6">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="memberEmail" layoutX="10.0" layoutY="76.0" promptText="Enter Email">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="818.0" spacing="25.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="94.0" text="Type" textFill="#2497d6">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <RadioButton fx:id="memberTypeStudent" mnemonicParsing="false" selected="true" text="Student">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="memberType" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="memberTypeFaculty" mnemonicParsing="false" text="Faculty" toggleGroup="$memberType" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="785.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="121.0" text="Department" textFill="#2497d6">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="department" prefHeight="26.0" prefWidth="264.0" />
+               </children>
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#addMember" styleClass="buttonClass" stylesheets="@../application/application.css" text="Save">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancelBtn" layoutX="301.0" layoutY="32.0" mnemonicParsing="false" onAction="#cancelBtn" styleClass="buttonClass" stylesheets="@../application/application.css" text="Cancel">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

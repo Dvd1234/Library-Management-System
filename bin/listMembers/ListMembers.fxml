@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="listMembers.ListMembersController">
+   <children>
+      <TableView fx:id="tableView" layoutX="157.0" layoutY="126.0" prefHeight="560.0" prefWidth="646.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="memberId" prefWidth="64.00000154972076" text="Membr ID" />
+            <TableColumn fx:id="name" prefWidth="111.20000457763672" text="Name" />
+          <TableColumn fx:id="contactNumber" prefWidth="72.0" text="Contact No." />
+          <TableColumn fx:id="email" prefWidth="153.5999755859375" text="Email" />
+            <TableColumn fx:id="booksBorrowed" prefWidth="92.79998779296875" text="Books Borrowd" />
+            <TableColumn fx:id="type" prefWidth="65.60006713867188" text="Type" />
+            <TableColumn fx:id="department" minWidth="0.0" prefWidth="169.60009765625" text="Dept" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

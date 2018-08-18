@@ -58,7 +58,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="115.0" prefWidth="150.0" text="Add Member" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#addMember" prefHeight="115.0" prefWidth="150.0" text="Add Member" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
@@ -70,7 +70,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="112.0" prefWidth="152.0" text="View Books" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#listBooks" prefHeight="112.0" prefWidth="152.0" text="View Books" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
@@ -82,7 +82,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="114.0" prefWidth="150.0" text="View Member" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#listMembers" prefHeight="114.0" prefWidth="150.0" text="View Member" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
