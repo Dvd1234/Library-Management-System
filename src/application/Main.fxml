@@ -203,14 +203,14 @@
                            <children>
                               <BorderPane layoutX="136.0" layoutY="153.0" prefHeight="542.4" prefWidth="627.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <top>
-                                    <TextField prefHeight="26.0" prefWidth="468.0" promptText="Enter Book ID" BorderPane.alignment="CENTER">
+                                    <TextField fx:id="bookSubmitId" onAction="#loadInfo" prefHeight="26.0" prefWidth="468.0" promptText="Enter Book ID" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
                                        </BorderPane.margin>
                                     </TextField>
                                  </top>
                                  <center>
-                                    <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                    <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                                  </center>
                                  <bottom>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
@@ -220,7 +220,7 @@
                                                 <Font size="24.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="submissionButton" mnemonicParsing="false" style="-fx-border-radius: 10em;" stylesheets="@application.css" text="Submission" textAlignment="CENTER">
+                                          <Button fx:id="submissionButton" mnemonicParsing="false" onAction="#submitBook" style="-fx-border-radius: 10em;" stylesheets="@application.css" text="Submission" textAlignment="CENTER">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>

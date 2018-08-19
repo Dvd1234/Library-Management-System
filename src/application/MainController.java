@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dbutils.ConnectDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -42,16 +45,24 @@ public class MainController implements Initializable {
 	private TextField bookInputId;
 	
 	@FXML
+	private TextField bookSubmitId;
+	
+	
+	@FXML
 	private Label bookName;
 	
 	@FXML
 	private Label bookAuthor;
+	
+	@FXML
+	private ListView<String> listView;
 	
 	private ConnectDB connectDb;
 	
 	
 	boolean bookflag=false;
 	boolean memberflag=false;
+	boolean submitflag=false;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -237,6 +248,112 @@ public class MainController implements Initializable {
 		
 	}
 	
+	
+	
+	
+	public void submitBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException {
+		
+		if(!submitflag) {
+			
+			Alert alert=new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setContentText("The Book has not been Issued. Please reCheck");
+			alert.showAndWait();
+			return;
+			
+		}
+		String id=bookSubmitId.getText();
+		String sql="DELETE FROM issueBook WHERE bookId='"+id+"'";
+		Connection conn=ConnectDB.getConnection();
+		PreparedStatement pst=conn.prepareStatement(sql);
+		pst.execute();
+		Alert alert=new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText(null);
+		alert.setContentText("The Book with BookId "+bookSubmitId.getText()+" has been Submitted");
+		alert.showAndWait();
+		
+		bookSubmitId.setText("");
+		submitflag=false;
+		listView.getItems().clear();
+		
+		
+	}
+	
+	
+	
+	
+	public void loadInfo(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException {
+		
+		ObservableList<String> issueData=FXCollections.observableArrayList();
+		
+		String id=bookSubmitId.getText();
+		String sql="SELECT * FROM issueBook WHERE bookId='"+id+"'";
+		Connection conn=ConnectDB.getConnection();
+		PreparedStatement pst=conn.prepareStatement(sql);
+		ResultSet rst=pst.executeQuery();
+		
+		submitflag=false;
+		
+		while(rst.next()) {
+			
+			String bookId=id;
+			String memId=rst.getString("memberId");
+			String issueTime=rst.getString("timeStamp");
+			
+			issueData.add("Issued Information:");
+			issueData.add("Issue Date and Time : "+issueTime);
+			
+			submitflag=true;
+			
+			String sql1="SELECT * FROM book WHERE bookId='"+id+"'";
+			
+			PreparedStatement pst1=conn.prepareStatement(sql1);
+			ResultSet rst1=pst1.executeQuery();
+			
+			issueData.add("");
+			while(rst1.next()) {
+				
+				issueData.add("Book Name: "+rst1.getString("bookTitle"));
+				issueData.add("Author Name: "+rst1.getString("bookAuthor"));
+				issueData.add("Publisher Name: "+rst1.getString("bookPublisher"));
+				
+				
+			}
+			
+			String sql2="SELECT * FROM member WHERE memberId='"+memId+"'";
+			
+			PreparedStatement pst2=conn.prepareStatement(sql2);
+			ResultSet rst2=pst2.executeQuery();
+			issueData.add("");
+			issueData.add("Issued To:");
+			while(rst2.next()) {
+				
+				issueData.add("Member Name: "+rst2.getString("Name"));
+				issueData.add("Member Contact Number: "+rst2.getString("contactNumber"));
+				issueData.add("Type: "+rst2.getString("type"));
+				issueData.add("Department: "+rst2.getString("department"));
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+		if(!submitflag){
+			issueData.add("No Book Of This Id Issued");
+			issueData.add("Please Recheck the Id");
+		}
+		
+		listView.getItems().setAll(issueData);		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
