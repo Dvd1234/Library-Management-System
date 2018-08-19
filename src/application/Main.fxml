@@ -120,15 +120,15 @@
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="132.0" prefWidth="627.0">
                                        <children>
-                                          <TextField prefHeight="26.0" prefWidth="200.0" promptText="Enter The Book ID" />
-                                          <VBox alignment="CENTER" prefHeight="132.0" prefWidth="426.0">
+                                          <TextField fx:id="bookInputId" onAction="#bookIdEnter" prefHeight="26.0" prefWidth="200.0" promptText="Enter The Book ID" />
+                                          <VBox alignment="CENTER" prefHeight="132.0" prefWidth="426.0" spacing="5.0">
                                              <children>
-                                                <Label text="Book Name">
+                                                <Label fx:id="bookName" alignment="CENTER" prefHeight="32.0" prefWidth="226.0" text="Book Name">
                                                    <font>
                                                       <Font name="System Bold" size="22.0" />
                                                    </font>
                                                 </Label>
-                                                <Label prefHeight="32.0" prefWidth="137.0" text="Book Author" textAlignment="CENTER">
+                                                <Label fx:id="bookAuthor" alignment="CENTER" prefHeight="32.0" prefWidth="409.0" text="Book Author">
                                                    <font>
                                                       <Font name="System Bold" size="22.0" />
                                                    </font>
@@ -148,15 +148,20 @@
                                     </HBox>
                                     <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="132.0" prefWidth="627.0">
                                        <children>
-                                          <TextField prefHeight="26.0" prefWidth="200.0" promptText="Enter The Member ID" />
-                                          <VBox alignment="CENTER" prefHeight="132.0" prefWidth="426.0">
+                                          <TextField fx:id="memberInputId" onAction="#memberIdEnter" prefHeight="26.0" prefWidth="200.0" promptText="Enter The Member ID" />
+                                          <VBox alignment="CENTER" prefHeight="132.0" prefWidth="426.0" spacing="5.0">
                                              <children>
-                                                <Label prefHeight="36.0" prefWidth="162.0" text="Member Name" textAlignment="JUSTIFY">
+                                                <Label fx:id="memberName" alignment="CENTER" prefHeight="36.0" prefWidth="406.0" text="Member Name" textAlignment="JUSTIFY">
                                                    <font>
                                                       <Font name="System Bold" size="22.0" />
                                                    </font>
                                                 </Label>
-                                                <Label prefHeight="36.0" prefWidth="166.0" text="Phone Number" textAlignment="JUSTIFY">
+                                                <Label fx:id="memberContactNumber" alignment="CENTER" prefHeight="36.0" prefWidth="307.0" text="Phone Number" textAlignment="JUSTIFY">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="booksBorrowed" alignment="CENTER" layoutX="138.0" layoutY="38.0" prefHeight="36.0" prefWidth="226.0" text="Books Borrowed" textAlignment="JUSTIFY">
                                                    <font>
                                                       <Font name="System Bold" size="22.0" />
                                                    </font>
@@ -179,7 +184,7 @@
                                           <Insets top="20.0" />
                                        </padding>
                                        <children>
-                                          <Button fx:id="issueButton" mnemonicParsing="false" style="-fx-background-radius: 20em;" stylesheets="@application.css" text="Issue Book">
+                                          <Button fx:id="issueButton" mnemonicParsing="false" onAction="#issueBook" style="-fx-background-radius: 20em;" stylesheets="@application.css" text="Issue Book">
                                              <font>
                                                 <Font name="System Bold" size="26.0" />
                                              </font>
