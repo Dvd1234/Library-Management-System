@@ -94,7 +94,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="118.0" prefWidth="153.0" text="Settings" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#loadSettings" prefHeight="118.0" prefWidth="153.0" text="Settings" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>

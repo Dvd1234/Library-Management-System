@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import settings.Settings;
 
 public class MainController implements Initializable {
 
@@ -40,6 +41,9 @@ public class MainController implements Initializable {
 	
 	@FXML
 	private Label booksBorrowed;
+	
+
+	private String memberType;
 	
 	@FXML
 	private TextField bookInputId;
@@ -59,15 +63,19 @@ public class MainController implements Initializable {
 	
 	private ConnectDB connectDb;
 	
-	
+	Settings set;
 	boolean bookflag=false;
 	boolean memberflag=false;
 	boolean submitflag=false;
+	
+	
+	String submitRequiredMemId="";
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		connectDb=new ConnectDB();
+		set=new Settings();
 		
 		
 	}
@@ -113,6 +121,7 @@ public class MainController implements Initializable {
 			String bname=rs.getString("name");
 			String aname=rs.getString("contactNumber");
 			String bBorrowed=rs.getString("booksBorrowed");
+			memberType=rs.getString("type");
 			
 			memberName.setText(bname);
 			memberContactNumber.setText(aname);
@@ -161,6 +170,13 @@ public class MainController implements Initializable {
 	
 	}
 	
+	@FXML
+	public void loadSettings(ActionEvent event) throws IOException {
+		
+		loadWindow("/settings/Settings.fxml","Settings","/img/5edaf57721d0a36f313bb84bec6c7a68-screwdriver.png");
+		
+	}
+	
 	
 	@FXML
 	public void issueBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException {
@@ -179,7 +195,17 @@ public class MainController implements Initializable {
 			
 		}
 		
-		if(Integer.parseInt(borrowed)==2) {
+		int maxBook=2;
+		
+		System.out.println(memberType);
+		if(memberType.equalsIgnoreCase("student")) {
+			maxBook=set.getMaxBooksStudent();
+		}
+		else if(memberType.equalsIgnoreCase("faculty")) {
+			maxBook=set.getMaxBookFaculty();
+		}
+		
+		if(Integer.parseInt(borrowed)>=maxBook) {
 			
 			Alert alert=new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -272,6 +298,10 @@ public class MainController implements Initializable {
 		alert.setContentText("The Book with BookId "+bookSubmitId.getText()+" has been Submitted");
 		alert.showAndWait();
 		
+		PreparedStatement pst2=conn.prepareStatement("UPDATE MEMBER SET booksBorrowed=booksBorrowed-1 WHERE memberId='"+submitRequiredMemId+"'");
+		pst2.execute();
+		
+		
 		bookSubmitId.setText("");
 		submitflag=false;
 		listView.getItems().clear();
@@ -299,6 +329,8 @@ public class MainController implements Initializable {
 			String bookId=id;
 			String memId=rst.getString("memberId");
 			String issueTime=rst.getString("timeStamp");
+			
+			submitRequiredMemId=memId;
 			
 			issueData.add("Issued Information:");
 			issueData.add("Issue Date and Time : "+issueTime);
@@ -347,9 +379,6 @@ public class MainController implements Initializable {
 		}
 		
 		listView.getItems().setAll(issueData);		
-		
-		
-		
 		
 		
 		
