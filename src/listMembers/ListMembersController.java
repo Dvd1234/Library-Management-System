@@ -13,9 +13,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import listBooks.ListBooksController.Book;
 
 public class ListMembersController implements Initializable{
 	@FXML
@@ -33,11 +36,16 @@ public class ListMembersController implements Initializable{
 	@FXML
 	private TableColumn<Member,String> department;
 	
+	ObservableList<String> choice= FXCollections.observableArrayList("memberId","name","contactNumber","department");
 	
 	@FXML
 	private TableView<Member> tableView;
 	
+	@FXML
+	private TextField searchBox;
 	
+	@FXML
+	private ChoiceBox searchChoice;
 	
 	
 	ObservableList<Member> list= FXCollections.observableArrayList();
@@ -61,7 +69,7 @@ public class ListMembersController implements Initializable{
 	}
 	
 	
-public void loadData() throws InstantiationException, IllegalAccessException, SQLException {
+	public void loadData() throws InstantiationException, IllegalAccessException, SQLException {
 		
 	
 		String sql="SELECT * from MEMBER";
@@ -92,7 +100,7 @@ public void loadData() throws InstantiationException, IllegalAccessException, SQ
 	}
 	
 
-		public static class Member{
+	public static class Member{
 			
 			private final SimpleStringProperty memberId;
 			private final SimpleStringProperty name;
@@ -161,7 +169,42 @@ public void loadData() throws InstantiationException, IllegalAccessException, SQ
 		}
 
 
+	public void search() throws SQLException, InstantiationException, IllegalAccessException {
+		
+		String whatToSearch=searchChoice.getValue().toString();
+		String search=searchBox.getText();
+		
+		String sql="SELECT * FROM member WHERE "+whatToSearch+" LIKE '%"+search+"%'";
+		
+		Connection conn=ConnectDB.getConnection();
+		PreparedStatement pst=conn.prepareStatement(sql);
+		
+		
+		ResultSet rs=pst.executeQuery();
+		
 
+		ObservableList<Member> searchList= FXCollections.observableArrayList();
+		
+		while(rs.next()) {
+			String memberId=rs.getString("memberId");
+			String name=rs.getString("name");
+			String contactNumber=rs.getString("contactNumber");
+			String email=rs.getString("email");
+			String booksBorrowed=rs.getString("booksBorrowed");
+			String type=rs.getString("type");
+			String department=rs.getString("department");
+			
+			searchList.add(new Member(memberId,name,contactNumber,email,booksBorrowed,type,department));
+			
+			
+		}
+		
+		
+		tableView.getItems().setAll(searchList);
+		
+		
+		
+	}
 			
 		
 
@@ -184,6 +227,10 @@ public void loadData() throws InstantiationException, IllegalAccessException, SQ
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		searchChoice.setValue("memberId");
+		searchChoice.setItems(choice);
+		
 		
 	}
 

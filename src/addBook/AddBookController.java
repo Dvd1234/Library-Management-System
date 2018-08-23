@@ -30,6 +30,10 @@ public class AddBookController implements Initializable {
 	@FXML
 	private TextField bookPublisher;
 	
+	@FXML
+	private TextField tags;
+	
+	
 	private ConnectDB connectDB;
 
 	// Event Listener on Button.onAction
@@ -40,6 +44,7 @@ public class AddBookController implements Initializable {
 		String mid=bookId.getText();
 		String mauthor=bookAuthor.getText();
 		String mpublisher=bookPublisher.getText();
+		String mtags=tags.getText();
 		
 		if(mtitle.isEmpty()||mid.isEmpty()||mauthor.isEmpty()||mpublisher.isEmpty()) {
 			
@@ -52,7 +57,7 @@ public class AddBookController implements Initializable {
 		}
 		
 		//here we perform Query
-		String sql="INSERT INTO BOOK (bookId,bookTitle,bookAuthor,bookPublisher) VALUES (?,?,?,?)";
+		String sql="INSERT INTO BOOK (bookId,bookTitle,bookAuthor,bookPublisher,tags) VALUES (?,?,?,?,?)";
 		Connection conn=ConnectDB.getConnection();
 		PreparedStatement pst= conn.prepareStatement(sql);
 		
@@ -60,6 +65,7 @@ public class AddBookController implements Initializable {
 		pst.setString(2, mtitle);
 		pst.setString(3, mauthor);
 		pst.setString(4, mpublisher);
+		pst.setString(5, mtags);
 		
 		pst.execute();
 		Alert alert=new Alert(Alert.AlertType.INFORMATION);

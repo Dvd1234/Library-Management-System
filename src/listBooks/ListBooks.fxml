@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="listBooks.ListBooksController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="listBooks.ListBooksController">
    <children>
-      <TableView fx:id="tableView" layoutX="106.0" layoutY="94.0" prefHeight="538.0" prefWidth="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="idCol" prefWidth="73.59997403621674" text="ID" />
-          <TableColumn fx:id="titleCol" prefWidth="197.60004425048828" text="Title" />
-            <TableColumn fx:id="authorCol" prefWidth="144.800048828125" text="Author" />
-            <TableColumn fx:id="publisherCol" prefWidth="135.19985961914062" text="Publisher" />
-        </columns>
-      </TableView>
+      <VBox prefHeight="538.0" prefWidth="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../img/searchIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="31.0" prefWidth="84.0" text="Search:" textFill="#066a94">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="searchChoice" prefWidth="150.0" />
+                  <TextField fx:id="searchBox" onAction="#search" prefHeight="26.0" prefWidth="327.0" promptText="What To Search. Eg. Title: Java: The Complete Reference" />
+               </children>
+            </HBox>
+            <TableView fx:id="tableView" prefHeight="538.0" prefWidth="548.0">
+              <columns>
+                <TableColumn fx:id="idCol" prefWidth="73.59997403621674" text="ID" />
+                <TableColumn fx:id="titleCol" prefWidth="215.20008087158203" text="Title" />
+                  <TableColumn fx:id="authorCol" prefWidth="163.199951171875" text="Author" />
+                  <TableColumn fx:id="publisherCol" prefWidth="147.199951171875" text="Publisher" />
+                  <TableColumn fx:id="tagsCol" prefWidth="120.800048828125" text="Tags" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

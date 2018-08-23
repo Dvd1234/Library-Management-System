@@ -1,15 +1,21 @@
 package application;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.mail.MessagingException;
+
 import dbutils.ConnectDB;
+import email.SendEmail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +33,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import settings.Settings;
+import email.*;
+
 
 public class MainController implements Initializable {
 
@@ -70,6 +78,9 @@ public class MainController implements Initializable {
 	
 	
 	String submitRequiredMemId="";
+	String emailRequiredMemName="";
+	String emailRequiredBookTitle="";
+	String emailRequiredEmail="";
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -131,8 +142,8 @@ public class MainController implements Initializable {
 		}
 		
 		if(!memberflag) {
-			memberName.setText("No Such Book Available");
-			memberContactNumber.setText("No Such Author");
+			memberName.setText("No Such Member Available");
+			memberContactNumber.setText("Please Recheck ID");
 			booksBorrowed.setText("");
 		}
 		
@@ -179,7 +190,7 @@ public class MainController implements Initializable {
 	
 	
 	@FXML
-	public void issueBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException {
+	public void issueBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException, MessagingException {
 		
 		String memberId=memberInputId.getText();
 		String bookId=bookInputId.getText();
@@ -213,7 +224,6 @@ public class MainController implements Initializable {
 			alert.showAndWait();
 			return;
 			
-			
 		}
 		
 		
@@ -234,6 +244,8 @@ public class MainController implements Initializable {
 			pst.setString(2, memberId);
 			
 			pst.execute();
+			
+			
 			
 			
 			memberInputId.setText("");
@@ -262,6 +274,25 @@ public class MainController implements Initializable {
 			pst1.execute();
 			
 			
+			SendEmail mail=new SendEmail();
+			
+			
+			String sql2="SELECT email,name FROM member WHERE memberId='"+memberId+"'";
+			PreparedStatement pst2=conn.prepareStatement(sql2);
+			ResultSet email=pst2.executeQuery();
+			String emailReceiver="";
+			String name="";
+			while(email.next()) {
+				
+				emailReceiver=email.getString(1);
+				name=email.getString(2);
+				
+			}
+			Date date=new Date();
+			
+			String message ="Hello "+name+ ",\nThe Book Titled "+bookName.getText()+" has been Issued to you On "+date+".\nLAST SUBMISSION DATE: "+LocalDate.now().plusDays(15);
+			mail.sendEmail(emailReceiver,message);
+			
 			
 			
 			
@@ -277,7 +308,7 @@ public class MainController implements Initializable {
 	
 	
 	
-	public void submitBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException {
+	public void submitBook(ActionEvent event) throws InstantiationException, IllegalAccessException, SQLException, MessagingException {
 		
 		if(!submitflag) {
 			
@@ -300,6 +331,11 @@ public class MainController implements Initializable {
 		
 		PreparedStatement pst2=conn.prepareStatement("UPDATE MEMBER SET booksBorrowed=booksBorrowed-1 WHERE memberId='"+submitRequiredMemId+"'");
 		pst2.execute();
+		
+		SendEmail mail=new SendEmail();
+		
+		String message ="Dear "+emailRequiredMemName+ ",\nThe Book Titled "+emailRequiredBookTitle+" has been Submitted by you On "+LocalDate.now()+".";
+		mail.sendEmail(emailRequiredEmail,message);
 		
 		
 		bookSubmitId.setText("");
@@ -345,10 +381,11 @@ public class MainController implements Initializable {
 			issueData.add("");
 			while(rst1.next()) {
 				
+				emailRequiredBookTitle=rst1.getString("bookTitle");
 				issueData.add("Book Name: "+rst1.getString("bookTitle"));
 				issueData.add("Author Name: "+rst1.getString("bookAuthor"));
 				issueData.add("Publisher Name: "+rst1.getString("bookPublisher"));
-				
+				issueData.add("Tags : "+rst1.getString("tags"));
 				
 			}
 			
@@ -360,8 +397,11 @@ public class MainController implements Initializable {
 			issueData.add("Issued To:");
 			while(rst2.next()) {
 				
+				emailRequiredMemName=rst2.getString("Name");
+				emailRequiredEmail=rst.getString("email");
 				issueData.add("Member Name: "+rst2.getString("Name"));
 				issueData.add("Member Contact Number: "+rst2.getString("contactNumber"));
+				issueData.add("Member Mail Id: "+rst.getString("email"));
 				issueData.add("Type: "+rst2.getString("type"));
 				issueData.add("Department: "+rst2.getString("department"));
 				

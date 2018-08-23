@@ -123,7 +123,7 @@
                                           <TextField fx:id="bookInputId" onAction="#bookIdEnter" prefHeight="26.0" prefWidth="200.0" promptText="Enter The Book ID" />
                                           <VBox alignment="CENTER" prefHeight="132.0" prefWidth="426.0" spacing="5.0">
                                              <children>
-                                                <Label fx:id="bookName" alignment="CENTER" prefHeight="32.0" prefWidth="226.0" text="Book Name">
+                                                <Label fx:id="bookName" alignment="CENTER" prefHeight="32.0" prefWidth="406.0" text="Book Name">
                                                    <font>
                                                       <Font name="System Bold" size="22.0" />
                                                    </font>
